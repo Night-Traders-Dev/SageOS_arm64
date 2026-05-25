@@ -1,2 +1,1 @@
-# SageOS_arm64
-SageOS port for ARM64 (AArch64) architectures
+# SageOS ARM64 - Raspberry Pi 4 Port
