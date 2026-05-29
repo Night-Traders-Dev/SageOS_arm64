@@ -1,15 +1,53 @@
+.align 11
+.global exception_vectors
+exception_vectors:
+    /* --- Current EL with SP0 --- */
+    .align 7
+    b el0_sync_handler
+    .align 7
+    b .
+    .align 7
+    b .
+    .align 7
+    b .
+
+    /* --- Current EL with SPx --- */
+    .align 7
+    b el0_sync_handler
+    .align 7
+    b .
+    .align 7
+    b .
+    .align 7
+    b .
+
+    /* --- Lower EL using AArch64 --- */
+    .align 7
+    b el0_sync_handler
+    .align 7
+    b .
+    .align 7
+    b .
+    .align 7
+    b .
+
+    /* --- Lower EL using AArch32 --- */
+    .align 7
+    b .
+    .align 7
+    b .
+    .align 7
+    b .
+    .align 7
+    b .
+
 .global el0_sync_handler
 el0_sync_handler:
-    /* x8 = syscall number (Linux arm64 ABI)
-     * x0-x5 = args
-     * Return in x0
-     */
+    /* Save registers */
     stp x29, x30, [sp, #-16]!
     mov x29, sp
-
-    /* Shift args to make room for syscall number in x0
-     * syscall_dispatch(num, a1, a2, a3, a4, a5)
-     */
+    
+    /* x8 = syscall number, x0-x5 = args */
     mov x5, x4
     mov x4, x3
     mov x3, x2
